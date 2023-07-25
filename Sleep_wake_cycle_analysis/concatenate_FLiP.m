@@ -1,7 +1,8 @@
-rawdat_dir = '/Volumes/PcSSDA/1610/20220219_1610_SW_002/';
-% FLipAnalysisInRow(rawdat_dir, 1,1);
-acq_range = 11:22;
-FirstAcq=10;
+% rawdat_dir = '/Volumes/PcSSDA/1610/20220219_1610_SW_002/';
+% % FLipAnalysisInRow(rawdat_dir, 1,1);
+% acq_range = 11:22;
+% FirstAcq=10;
+% SavedFilePostFix = '20220315';
 
 tau_emp_all = [];
 photoncount_all = [];
@@ -11,9 +12,13 @@ tau_fit_G_all = [];
 chi_sq_G_all = [];
 dpeak_all = [];
 GWidth_all = [];
+AnalyzedFileRange = acq_range-FirstAcq+1;
 filename = strcat(rawdat_dir, 'concat_Acq',num2str(acq_range(1)), '_', num2str(acq_range(end)));
-for iAcq=acq_range-FirstAcq+1
-    file = strcat(rawdat_dir,sprintf('20220219_1610_SW_002_analysis_%dh_20220315.mat',iAcq));
+for i = 1:length(acq_range)
+
+    iAcq=AnalyzedFileRange(i);
+%     file = strcat(rawdat_dir,sprintf('20220219_1610_SW_002_analysis_%dh_20220315.mat',iAcq));
+    file = [SavedFilePreFix, num2str(iAcq), 'h_', SavedFilePostFix, '.mat']
     load(file);
 %     plotFLiPdata(file)
     photoncount_all = [photoncount_all, photoncount'];
